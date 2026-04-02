@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IoT Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ⭐ STARS -->
+<div id="stars"></div>
+
+<header>🚀 IoT Project Dashboard</header>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="center-box">
+    <h2>🔐 Login</h2>
+
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    
+    <button onclick="openSignup()">Sign Up</button>
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <h3>Register</h3>
+        <input id="newUser" placeholder="Username"><br><br>
+        <input id="newPass" placeholder="Password"><br><br>
+
+        <button onclick="signup()">Register</button>
+        <button onclick="closeSignup()">Close</button>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+
+    <div class="top-bar">
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- MQTT -->
+    <div class="mqtt-box">
+        <h3>MQTT Connection</h3>
+        <input id="host" placeholder="Cluster URL"><br><br>
+        <input id="port" placeholder="Port"><br><br>
+        <input id="mqttUser" placeholder="Username"><br><br>
+        <input id="mqttPass" placeholder="Password"><br><br>
+
+        <button onclick="connectMQTT()">Connect</button>
+    </div>
+
+    <!-- PROJECT -->
+    <div class="project-box">
+        <h3>Add Project</h3>
+        <input id="projectName" placeholder="Project Name">
+        <button onclick="addProject()">Add</button>
+
+        <div id="projects"></div>
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

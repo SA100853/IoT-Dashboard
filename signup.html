@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial;
+            background: black;
+            color: white;
+        }
+
+        /* ⭐ STAR CONTAINER */
+        #stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle var(--twinkle) infinite ease-in-out,
+                       float var(--float) infinite linear;
+        }
+
+        @keyframes twinkle {
+            0%,100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100vh); }
+        }
+
+        /* 🔥 FORM */
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            text-align: center;
+            background: rgba(0,0,0,0.6);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px cyan;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 220px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background: cyan;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ⭐ BACKGROUND -->
+    <div id="stars"></div>
+
+    <!-- 🔥 FORM -->
+    <div class="container">
+        <h2>Create Account</h2>
+
+        <input id="username" placeholder="Username"><br>
+        <input id="password" type="password" placeholder="Password">
+        
+
+        <button onclick="signup()">Register</button><br><br>
+        <button onclick="goBack()">Back to Login</button>
+    </div>
+
+    <script>
+        /* ⭐ CREATE STARS */
+        function createStars() {
+            const container = document.getElementById("stars");
+
+            for (let i = 0; i < 150; i++) {
+                let star = document.createElement("div");
+                star.className = "star";
+
+                star.style.left = Math.random() * 100 + "%";
+                star.style.top = Math.random() * 100 + "%";
+
+                star.style.setProperty("--twinkle", (2 + Math.random() * 3) + "s");
+                star.style.setProperty("--float", (20 + Math.random() * 20) + "s");
+
+                let size = Math.random() * 3 + 1;
+                star.style.width = size + "px";
+                star.style.height = size + "px";
+
+                container.appendChild(star);
+            }
+        }
+
+        window.onload = createStars;
+
+        /* ✅ SIGNUP */
+        const API_URL = "http://localhost:3000";
+
+        async function signup() {
+            let username = document.getElementById("username").value.trim();
+            let password = document.getElementById("password").value.trim();
+
+            if (!username || !password) {
+                alert("Enter username and password");
+                return;
+            }
+
+            try {
+                let res = await fetch(`${API_URL}/signup`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                let data = await res.json();
+                alert(data.message);
+
+                if (data.message === "User registered successfully") {
+                    window.location.href = "index.html";
+                }
+
+            } catch (err) {
+                console.error(err);
+                alert("Signup failed");
+            }
+        }
+
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+
+</body>
+</html>
