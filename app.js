@@ -25,7 +25,7 @@ function createStars() {
 window.onload = createStars;
 
 /* ✅ API URL (IMPORTANT) */
-const API_URL = "http://localhost:3000";
+const API_URL = "https://your-app.onrender.com";
 
 /* ✅ SIGNUP */
 async function signup() {
